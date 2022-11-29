@@ -17,12 +17,7 @@ function CreateTripPage() {
     date: "",
   });
 
-  // const date = new Date();
-  // const day = String(date.getDate()).padStart(2, "0");
-  // const month = String(date.getMonth() + 1).padStart(2, "0");
-  // const year = date.getFullYear();
-  // const currentDate = `${day}/${month}/${year}`;
-  // console.log(currentDate);
+
 
   const token = localStorage.getItem("token");
   const headers = {
@@ -41,7 +36,7 @@ function CreateTripPage() {
         headers
       )
       .then((response) => {
-        console.log(response.data, alert("Viagem Criada!"));
+        console.log(response.data, alert("Viagem Criada com sucesso!"));
       })
       .catch((error) => {
         console.log(error);
