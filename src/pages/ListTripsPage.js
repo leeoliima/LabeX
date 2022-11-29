@@ -29,12 +29,9 @@ function ListTripsPage() {
     });
 
   return (
+    
     <LisTripDiv>
-      {!isLoadingUser && dataTrip && tripList}
-      {!isLoadingUser && !dataTrip && erroUser && erroUser}
-
-      <LisTripDiv>
-        <Buttons
+      <Buttons
           onClick={() => {
             goToBack(navigate);
           }}
@@ -48,6 +45,11 @@ function ListTripsPage() {
         >
           Inscrever-se
         </Buttons>
+      {!isLoadingUser && dataTrip && tripList}
+      {!isLoadingUser && !dataTrip && erroUser && erroUser}
+
+      <LisTripDiv>
+        
         <Loading>{isLoadingUser && "...Carregando!!! ...."}</Loading>
       </LisTripDiv>
     </LisTripDiv>

@@ -1,76 +1,49 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import useProtectedPage from "../hooks/UseProtectedPage";
-import { goToBack } from "../routes/Coordinator";
-import { Buttons, Card, CentralizerDiv, Header, StyledH2 } from "./style";
-import { BASE_URL } from "../constants/constants";
+import { goToAdminHomePage} from "../routes/Coordinator";
+import { Buttons, Card, Header, StyledH2, StyledH3, TripScreenContainer } from "./style";
 import { useRequestDataGet } from "../hooks/UseRequestData";
-import axios from "axios";
+
 
 function TripDetailsPage() {
+  useProtectedPage();
   const navigate = useNavigate();
   const { id } = useParams();
-  useProtectedPage();
-  const token = localStorage.getItem("token");
-  const headers = {
-    headers: {
-      auth: token,
-    },
-  };
+  const [tripDetails, getTripDetails] = useRequestDataGet(`/trip/${id}`)
 
-  useEffect(() => {
-    axios
-      .get(`${BASE_URL}trip/${id}`, {
-        headers: {
-          auth: token,
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.log("Deu erro: ", error.response);
-      });
-  }, []);
+    const candidates = tripDetails && tripDetails.trip && tripDetails.trip.candidates.map((c) => {
+        return <Card key={c.id} candidate={c} tripId={id} getTripDetails={getTripDetails} />
+    })
 
-  const [dataTrip] = useRequestDataGet(`${BASE_URL}trips/`);
+    const approvedCandidates = tripDetails && tripDetails.trip && tripDetails.trip.approved.map((c) => {
+        return <li key={c.id}>{c.name}</li>
+    })
 
-  const TripDetails =
-    dataTrip &&
-    dataTrip.trips.map((data) => {
-      return (
-        <div key={data.id}>
-          <Card key={data.id}>
-            <p> {data.planet}</p>
-            <p>{data.durationInDays}</p>
-            <p>{data.date}</p>
-            <p>{data.description}</p>
-          </Card>
-        </div>
-      );
-    });
+    return (
+        <TripScreenContainer>
 
-  //Não consegui renderizar o card selecionado da viagem, para seguir a lógica do put dos candidates
-  return (
-    <div>
-      <Header>
-        <StyledH2>Detalhes da viagem!</StyledH2>
-      </Header>
-      <CentralizerDiv>
-        {TripDetails}
+          <Header>
+            <StyledH2>Detalhes</StyledH2>
+            </Header>
 
-        <Buttons
-          onClick={() => {
-            goToBack(navigate);
-          }}
-        >
-          Voltar
-        </Buttons>
-        <Buttons>Aprovar</Buttons>
-        <Buttons>Reprovar</Buttons>
-      </CentralizerDiv>
-    </div>
-  );
+            {tripDetails && tripDetails.trip && <h1>{tripDetails.trip.name}</h1>}
+            {tripDetails && tripDetails.trip && <TripScreenContainer>
+                <p><b>Nome:</b> {tripDetails.trip.name}</p>
+                <p><b>Descrição:</b> {tripDetails.trip.description}</p>
+                <p><b>Planeta:</b> {tripDetails.trip.planet}</p>
+                <p><b>Duração:</b> {tripDetails.trip.durationInDays}</p>
+                <p><b>Data:</b> {tripDetails.trip.date}</p>
+            </TripScreenContainer>}
+
+            <StyledH3>Candidatos Pendentes</StyledH3> <br/>
+            {candidates && candidates.length > 0 ? candidates : <p>Não há candidatos pendentes</p>}
+
+            <StyledH3>Candidatos Aprovados</StyledH3>
+            {approvedCandidates && approvedCandidates.length > 0 ? approvedCandidates : <p>Não há candidatos aprovados</p>}
+            <Buttons onClick={() => goToAdminHomePage (navigate)}>Voltar</Buttons>
+        </TripScreenContainer>
+    )
 }
 
 export default TripDetailsPage;

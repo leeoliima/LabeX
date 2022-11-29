@@ -103,7 +103,7 @@ export const CardAdmin = styled.section`
     rgba(0, 0, 0, 1) 100%
   );
   color: white;
-  display: flex;
+  display: block;
   text-align: center;
   align-items: center;
   margin-bottom: 50px;
@@ -259,12 +259,12 @@ export const LisTripDiv = styled.div`
   flex-wrap: wrap;
   display: flex;
   width: 100vw;
-  align-items: center;
-  text-align: center;
+  align-items: auto;
+  text-align: auto;
   justify-content: center;
   h2 {
-    text-align: center;
-    align-items: center;
+    text-align: auto;
+    align-items: auto;
   }
 `;
 
@@ -304,4 +304,18 @@ export const FormDiv = styled.div`
   align-items: center;
   text-align: center;
   justify-content: center;
+`;
+
+//TRIP DETAILS PAGE
+
+export const TripScreenContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+export const StyledH3 = styled.h3`
+  font-size: 25px;
+  text-align: center;
+  align-items: center;
+  padding: 0 15px 0 15px;
 `;
