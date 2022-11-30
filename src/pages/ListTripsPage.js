@@ -29,27 +29,25 @@ function ListTripsPage() {
     });
 
   return (
-    
     <LisTripDiv>
       <Buttons
-          onClick={() => {
-            goToBack(navigate);
-          }}
-        >
-          Voltar
-        </Buttons>
-        <Buttons
-          onClick={() => {
-            goToApplicationFormPage(navigate);
-          }}
-        >
-          Inscrever-se
-        </Buttons>
+        onClick={() => {
+          goToBack(navigate);
+        }}
+      >
+        Voltar
+      </Buttons>
+      <Buttons
+        onClick={() => {
+          goToApplicationFormPage(navigate);
+        }}
+      >
+        Inscrever-se
+      </Buttons>
       {!isLoadingUser && dataTrip && tripList}
       {!isLoadingUser && !dataTrip && erroUser && erroUser}
 
       <LisTripDiv>
-        
         <Loading>{isLoadingUser && "...Carregando!!! ...."}</Loading>
       </LisTripDiv>
     </LisTripDiv>

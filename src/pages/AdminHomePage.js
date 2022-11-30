@@ -42,7 +42,10 @@ function AdminHomePage() {
         `https://us-central1-labenu-apis.cloudfunctions.net/labeX/leandro-lima-lamarr/trips/${id}`,
         headers
       )
-      .then((response) => console.log(response.data), alert("Viagem Apagada com sucesso!"))
+      .then(
+        (response) => console.log(response.data),
+        alert("Viagem Apagada com sucesso!")
+      )
       .catch((error) => console.log(error.message));
   };
 
