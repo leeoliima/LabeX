@@ -17,8 +17,6 @@ function CreateTripPage() {
     date: "",
   });
 
-
-
   const token = localStorage.getItem("token");
   const headers = {
     headers: {

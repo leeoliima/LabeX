@@ -309,10 +309,10 @@ export const FormDiv = styled.div`
 //TRIP DETAILS PAGE
 
 export const TripScreenContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
 export const StyledH3 = styled.h3`
   font-size: 25px;
   text-align: center;

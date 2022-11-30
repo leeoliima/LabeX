@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useForm } from "../hooks/UseForm";
 import { goToBack } from "../routes/Coordinator";
@@ -10,6 +10,7 @@ import { countries } from "../constants/countries";
 
 function ApplicationFormPage() {
   const navigate = useNavigate();
+  const [tripId, setTripId] = useState("");
 
   const [form, onChange, clear] = useForm({
     name: "",
@@ -19,14 +20,11 @@ function ApplicationFormPage() {
     country: "",
   });
 
-  const subscribe = (event) => {
+  const subscribe = (event, body, tripId) => {
     event.preventDefault();
 
     axios
-      .post(
-        "https://us-central1-labenu-apis.cloudfunctions.net/labeX/leandro-lima-lamarr/trips/NoIFVcOiSgTKTIPVZwXS/apply",
-        form
-      )
+      .post(`${BASE_URL}trips/${tripId}/apply`, body)
       .then((response) => console.log(response.data));
     alert("Aplicação enviada com sucesso!");
     clear().catch((error) => console.log(error.message));
@@ -34,6 +32,10 @@ function ApplicationFormPage() {
     clear();
   };
   console.log(form);
+
+  const onChangeTrip = (e) => {
+    setTripId(e.target.value);
+  };
 
   const [dataTrip] = useRequestDataGet(`${BASE_URL}trips`, {});
 
@@ -50,7 +52,7 @@ function ApplicationFormPage() {
       </Header>
       <CentralizerDiv>
         <form onSubmit={subscribe}>
-          <select id="select">
+          <select id="select" onChange={onChangeTrip}>
             <option disabled>Escolha uma Viagem</option>
             {tripsSelect}
           </select>
