@@ -37,7 +37,7 @@ O projeto consiste nos seguintes requisitos:
     <p style="font-weight: bold;"> Link do projeto</p>
 </h2>
 
- ### ➡  [LabEcommerce](http://brave-screw.surge.sh/)
+ ### ➡  [LabeX](http://brave-screw.surge.sh/)
 
  <br>
     <p style="color: #D30404; font-weight: bold;"> 📸 Prints das Telas</p>
